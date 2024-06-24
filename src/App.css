@@ -1,38 +1,295 @@
-.App {
-  text-align: center;
+html, body {
+  background-color: #0f131a;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.selected-range-list {
+  color: #e9ebf0;
+  margin-left: 16px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.picker {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  border-radius: 6px;
+  box-shadow: 0 4px 4px rgba(0,0,0,.12), 0 0 10px rgba(0,0,0,.06);
+  overflow: hidden;
+  text-align: left;
+  padding: 0;
+  background-color: #292d33;
+  height: 366px;
+}
+
+.date-picker-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  pointer-events: auto;
+}
+
+.daterange-header {
+  border-bottom: 1px solid #e5e5ea;
+  border-bottom: 1px solid #3c3f43;
+  font-size: 14px;
+  line-height: 1.42857143;
+  padding: 8px 12px;
+  color: #e9ebf0;
+}
+
+.calendar-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  height: 274px;
+  min-width: auto;
+}
+
+.rs-calendar:first-child {
+  border-right: 1px solid #e5e5ea;
+  border-right: 1px solid #3c3f43;
+}
+
+.rs-calendar {
+  display: inline-block;
+  padding-bottom: 12px;
+  margin: 0 auto;
+  min-width: 264px;
+  overflow: hidden;
+  padding-top: 12px;
+  position: relative;
+}
+
+.rs-calendar:first-child {
+  border-right: 1px solid #3c3f43;
+}
+
+.calendar-header {
+  text-align: center;
+  margin: 0 auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  box-sizing: border-box;
+}
+
+.calendar-header::before {
+  content: " ";
+  display: table;
+}
+
+.calendar-header::after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+.calendar-header-month-toolbar {
+  display: block;
+  text-align: center;
+  width: 100%;
+  float: none;
+}
+
+.calendar-header-month-toolbar::before {
+  content: " ";
+  display: table;
+}
+
+.calendar-header-month-toolbar::after {
+  content: " ";
+  display: table;
+  clear: both;
+}
+
+.calendar-header-backward {
+  float: left;
+}
+
+.calendar-header-forward {
+  float: right;
+}
+
+.btn-icon {
+  line-height: 12px;
+  padding: 6px;
+  font-size: 12px;
+  background-color: transparent;
+  border: none;
+  color: #a4a9b3;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
   align-items: center;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 400;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 0;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color .15s ease-out,background-color .15s ease-out;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
-.App-link {
-  color: #61dafb;
+.rs-icon {
+  line-height: 12px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.calendar-header-title-date {
+  margin: 0 4px;
+  font-size: 12px;
+  line-height: 20px;
+  background-color: transparent;
+  color: #a4a9b3;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  align-items: center;
+  font-weight: 400;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.calendar-body {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 4px 12px 12px;
+  box-sizing: border-box;
+}
+
+.calendar-table {
+  width: unset;
+  display: table;
+  table-layout: fixed;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.calendar-table-row {
+  display: table-row;
+}
+
+.calendar-table-header-cell, .calendar-table-cell {
+  display: table-cell;
+  padding: 1px 0;
+  text-align: center;
+  vertical-align: middle;
+  width: 1%;
+}
+
+.calendar-table-header-cell {
+  background: none;
+  cursor: auto;
+  color: #a4a9b3;
+  font-size: 12px;
+  line-height: 1.66666667;
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.calendar-table-cell {
+  color: #e9ebf0;
+}
+
+.calendar-table-cell-content {
+  display: inline-block;
+  padding-left: 0;
+  padding-right: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.42857143;
+  padding: 5px;
+}
+
+.calendar-table-cell-un-same-month {
+  color: #6a6f76;
+}
+
+.weekend {
+  cursor: not-allowed;
+}
+
+.weekend .calendar-table-cell-content {
+  cursor: not-allowed;
+}
+
+.highlighted {
+  background-color: #f8d7da;
+  color: #6a6f76;
+}
+
+.calendar-table-cell-selected {
+  background-color: #f76b76;
+  box-shadow: none;
+  color: #fff;
+}
+
+.dropdown-btn {
+  background-color: transparent;
+  color: #e9ebf0;
+  padding: 4px;
+}
+
+.dropdown-option {
+  color: #3c3f43;
+  padding: 4px;
+}
+
+.picker-toolbar {
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 100%;
+  display: flex;
+  border-top: 1px solid #3c3f43;
+  padding: 12px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.picker-toolbar-ranges {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 400px;
+  display: flex;
+}
+
+.range-btn {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 5px 10px;
+  background-color: transparent;
+  border: none;
+  color: #34c3ff;
+  cursor: pointer;
+}
+
+.weekend-btn {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 5px 10px;
+  background-color: #169de0;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
 }
